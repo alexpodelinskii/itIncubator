@@ -7,7 +7,16 @@ const data = {
                 coverImgUrl: 'img/cardImage/image1.jpeg',
                 tracksCount: 4
             },
-            tracks: []
+            tracks: [
+                {
+                    trackId: '1',
+                    artistName: 'Eminem',
+                    trackTitle: 'Rap God',
+                    isHot: true,
+                    trackCoverImgUrl: 'img/cardImage/trackList/track1.jpeg',
+                    trackFileUrl: 'audio/Eminem - Rap God.mp3'
+                }
+            ]
         },
         {
             playlistIfo: {
