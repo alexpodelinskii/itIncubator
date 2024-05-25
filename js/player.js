@@ -88,9 +88,6 @@ function Main() {
         playlistPanel,
         playlists
     );
-
-
-
     return main;
 }
 
@@ -99,15 +96,21 @@ function Main() {
 function draftPlaylist(playist) {
     const playlist = createElem('playlist', 'article');
 
-    const trackList = createElem('tracklist');
+    const trackListContainer = createElem('tracklist');
 
-    trackList.append(
+    const tracklist = createElem('list', 'ul');
+    playist.tracks.forEach(el => {
+        tracklist.append(draftTrack(el));
+    })
+
+    trackListContainer.append(
         draftTracklistPanel(),
+        tracklist
     )
 
     playlist.append(
         draftPlaylistInfo(playist.playlistIfo),
-        trackList
+        trackListContainer
     )
 
     return playlist;
@@ -182,7 +185,46 @@ function draftTracklistPanel() {
     return panel;
 }
 
+function draftTrack(el) {
+    const track = createElem('track-element', 'li')
 
+    const trackDetails = createElem('track-details');
+
+    const trackContainer = createElem('track-top-line');
+
+    if (el.isHot) {
+        trackContainer.append(
+            draftIsHot()
+        );
+    }
+
+    const trackInfo = createElem('track-info');
+
+    const trackName = createElem('track-name');
+    trackName.innerText = `${el.artistName} - ${el.trackTitle}`
+
+    trackInfo.append(
+        trackName,
+        draftEditPanel()
+    )
+
+    trackContainer.append(
+        trackInfo,
+    );
+
+    trackDetails.append(
+        trackContainer,
+        createAudio(el.trackFileUrl)
+    );
+
+
+
+    track.append(
+        createImg('track-cover-image', el.trackCoverImgUrl, 'track-cover'),
+        trackDetails
+    )
+    return track;
+}
 
 const root = document.getElementById('root');
 root.append(
@@ -202,4 +244,14 @@ function createImg(classname, src, alt) {
     image.src = src;
     image.alt = alt;
     return image;
+}
+
+function createAudio(src) {
+    const audio = createElem('audio', 'audio');
+    audio.src = src;
+    audio.controls = true;
+    return audio;
+}
+function draftIsHot() {
+    return createImg('track-status', 'img/icons/hot.svg', 'hot');
 }
