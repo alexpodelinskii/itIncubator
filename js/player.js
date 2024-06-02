@@ -95,7 +95,7 @@ function App() {
 
     container.append(
         Header(),
-        Main()
+        Main(data.playlists)
     )
 
     return container;
@@ -122,32 +122,32 @@ function Header() {
     return header;
 }
 
-function Main() {
-    const main = createElem('main', 'main');
+function Main(playlists) {
+    const mainElem = createElem('main', 'main');
 
-    const playlistPanel = createElem('add-playlist-panel');
+    const playlistPanelElem = createElem('add-playlist-panel');
 
-    const panelTitle = createElem('title', 'h1');
-    panelTitle.innerText = 'My playlists';
+    const panelTitleElem = createElem('title', 'h1');
+    panelTitleElem.innerText = 'My playlists';
 
-    const panelButton = createElem('button', 'button');
-    panelButton.innerText = 'Add Playlist';
+    const panelButtonElem = createElem('button', 'button');
+    panelButtonElem.innerText = 'Add Playlist';
 
-    playlistPanel.append(
-        panelTitle,
-        panelButton
+    playlistPanelElem.append(
+        panelTitleElem,
+        panelButtonElem
     );
 
-    const playlists = createElem('playlists');
-    data.playlists.forEach(elem => {
-        playlists.append(draftPlaylist(elem));
+    const playlistsElem = createElem('playlists');
+    playlists.forEach(elem => {
+        playlistsElem.append(draftPlaylist(elem));
     })
 
-    main.append(
-        playlistPanel,
-        playlists
+    mainElem.append(
+        playlistPanelElem,
+        playlistsElem
     );
-    return main;
+    return mainElem;
 }
 
 
